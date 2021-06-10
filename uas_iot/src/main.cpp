@@ -2,7 +2,7 @@
 #include <PubSubClient.h>
 
 const char *ssid = "synxhronous";
-const char *password = "";
+const char *password = "kjkszpj29";
 const char *mqtt_server = "ec2-107-23-191-191.compute-1.amazonaws.com";
 
 WiFiClient espClient;
@@ -58,9 +58,9 @@ void callback(char *topic, byte *payload, unsigned int length)
   {
     if (messageTemp == "siramtanaman")
     {
-      digitalWrite(relayModule, HIGH);
-      delay(5000);
       digitalWrite(relayModule, LOW);
+      delay(3500);
+      digitalWrite(relayModule, HIGH);
       client.publish("SPC/Notif", "Berhasil Disiram");
     }
   }
@@ -93,6 +93,7 @@ void setup()
   Serial.begin(115200);
   setup_wifi();
   pinMode(relayModule, OUTPUT);
+  digitalWrite(relayModule, HIGH);
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
 }
